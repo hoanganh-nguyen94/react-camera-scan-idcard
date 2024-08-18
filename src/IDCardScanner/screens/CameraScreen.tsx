@@ -18,13 +18,9 @@ export interface CameraScreenProps {
 export default function CameraScreen(props: CameraScreenProps) {
   const [hasPermission, setHasPermission] = useState(false);
   const [isActive, setIsActive] = useState(true);
-
   const device = useCameraDevice('back');
   const format = useCameraFormat(device, [
-    {
-      videoResolution: 'max',
-      videoStabilizationMode: 'auto',
-    },
+    {videoResolution: {width: 1920, height: 1080}},
     {fps: 30},
   ]);
   const [cropRegion, setCropRegion] = useState({
@@ -112,9 +108,9 @@ export default function CameraScreen(props: CameraScreenProps) {
             style={StyleSheet.absoluteFill}
             isActive={isActive}
             device={device}
-            pixelFormat={'native'}
             format={format}
             frameProcessor={frameProcessor}
+            pixelFormat="yuv"
           />
           <Svg
             preserveAspectRatio="xMidYMid slice"
