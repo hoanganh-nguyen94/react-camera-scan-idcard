@@ -1,5 +1,5 @@
 import {useEffect, useState} from 'react';
-import {Dimensions, Pressable, StyleSheet, View} from 'react-native';
+import {Pressable, StyleSheet, View} from 'react-native';
 import Svg, {Rect} from 'react-native-svg';
 import {
   Camera,
@@ -18,18 +18,11 @@ export interface CameraScreenProps {
 export default function CameraScreen(props: CameraScreenProps) {
   const [hasPermission, setHasPermission] = useState(false);
   const [isActive, setIsActive] = useState(true);
-  const screen = Dimensions.get('screen');
-  console.log(screen);
-  const device = useCameraDevice('back', {
-    physicalDevices: [
-      // 'ultra-wide-angle-camera',
-      // 'telephoto-camera',
-      'wide-angle-camera',
-    ],
-  });
+
+  const device = useCameraDevice('back');
   const format = useCameraFormat(device, [
     {
-      videoResolution: {width: screen.width, height: screen.height},
+      videoResolution: 'max',
       videoStabilizationMode: 'auto',
     },
     {fps: 30},
