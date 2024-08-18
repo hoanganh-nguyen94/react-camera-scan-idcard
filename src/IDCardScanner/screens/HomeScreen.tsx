@@ -1,71 +1,85 @@
-import { useEffect, useRef, useState } from "react";
-import { View, StyleSheet, ScrollView, Text, Pressable, Modal } from "react-native"
-import { IDCardManager } from "../utils/IDCardManager";
-import { Card } from "../components/Card";
+import {useEffect, useRef, useState} from 'react';
+import {
+  Modal,
+  Pressable,
+  ScrollView,
+  StyleSheet,
+  Text,
+  View,
+} from 'react-native';
+import {IDCardManager} from '../utils/IDCardManager';
+import {Card} from '../components/Card';
 
 interface HomeScreenProps {
-  route:any;
-  navigation:any;
+  route: any;
+  navigation: any;
 }
 
-export default function HomeScreen(props:HomeScreenProps){
-  const selectedCardKey = useRef("");
-  const [cardKeys,setCardKeys] = useState<readonly string[]>([]);
-  const [modalVisible,setModalVisible] = useState(false);
+export default function HomeScreen(props: HomeScreenProps) {
+  const selectedCardKey = useRef('');
+  const [cardKeys, setCardKeys] = useState<readonly string[]>([]);
+  const [modalVisible, setModalVisible] = useState(false);
   useEffect(() => {
     const unsubscribe = props.navigation.addListener('focus', async () => {
-      console.log("screen focused");
-      setCardKeys([]);//force rendering
+      console.log('screen focused');
+      setCardKeys([]); //force rendering
       setCardKeys(await IDCardManager.getKeys());
     });
     return unsubscribe;
   }, [props.navigation]);
 
   const goToCardScreen = () => {
-    console.log("goToCardScreen");
-    props.navigation.navigate('Card',{
+    console.log('goToCardScreen');
+    props.navigation.navigate('Card', {
       cardKey: selectedCardKey.current,
     });
-  }
+  };
 
-  const cardPressed = (key:string) => {
+  const cardPressed = (key: string) => {
     selectedCardKey.current = key;
     setModalVisible(true);
-  }
+  };
 
   const renderCards = () => {
-    let cards:React.ReactElement[] = [];
+    let cards: React.ReactElement[] = [];
     if (cardKeys.length == 0) {
       return;
     }
-    console.log("renderCards");
-    cardKeys.forEach(async cardKey =>  {
+    console.log('renderCards');
+    cardKeys.forEach(async cardKey => {
       console.log(cardKey);
-      let card = <Card key={cardKey} cardKey={cardKey} onPress={()=>cardPressed(cardKey)}></Card>;
+      let card = (
+        <Card
+          key={cardKey}
+          cardKey={cardKey}
+          onPress={() => cardPressed(cardKey)}></Card>
+      );
       cards.push(card);
     });
-    if (cards.length>0) {
+    if (cards.length > 0) {
       return cards;
     }
-  }
+  };
 
-  const performAction = async (mode:"delete"|"open") => {
-    if (mode === "delete") {
+  const performAction = async (mode: 'delete' | 'open') => {
+    if (mode === 'delete') {
       await IDCardManager.deleteIDCard(selectedCardKey.current);
       setCardKeys(await IDCardManager.getKeys());
-    }else{
+    } else {
       goToCardScreen();
     }
     setModalVisible(!modalVisible);
-  }
-  
+  };
+
   return (
     <View style={StyleSheet.absoluteFill}>
-      <ScrollView style={styles.cardList}>
-        {renderCards()}
-      </ScrollView>
-      <View style={[styles.bottomBar, styles.elevation,styles.shadowProp]}>
-        <Pressable onPress={()=>{selectedCardKey.current ="";goToCardScreen()}}>
+      <ScrollView style={styles.cardList}>{renderCards()}</ScrollView>
+      <View style={[styles.bottomBar, styles.elevation, styles.shadowProp]}>
+        <Pressable
+          onPress={() => {
+            selectedCardKey.current = '';
+            goToCardScreen();
+          }}>
           <View style={styles.circle}>
             <Text style={styles.buttonText}>SCAN</Text>
           </View>
@@ -81,15 +95,15 @@ export default function HomeScreen(props:HomeScreenProps){
         <View style={styles.centeredView}>
           <View style={styles.modalView}>
             <Text style={styles.modalText}>Please select an action:</Text>
-            <View style={{flexDirection:"row"}}>
+            <View style={{flexDirection: 'row'}}>
               <Pressable
                 style={styles.button}
-                onPress={() => performAction("open")}>
+                onPress={() => performAction('open')}>
                 <Text style={styles.textStyle}>Open</Text>
               </Pressable>
               <Pressable
                 style={styles.button}
-                onPress={() => performAction("delete")}>
+                onPress={() => performAction('delete')}>
                 <Text style={styles.textStyle}>Delete</Text>
               </Pressable>
             </View>
@@ -97,20 +111,18 @@ export default function HomeScreen(props:HomeScreenProps){
         </View>
       </Modal>
     </View>
-  )
+  );
 }
 
 const styles = StyleSheet.create({
-  cardList: {
-    
-  },
-  bottomBar:{
-    width: "100%",
+  cardList: {},
+  bottomBar: {
+    width: '100%',
     height: 45,
     marginTop: 5,
-    flexDirection:"row",
-    justifyContent:"center",
-    backgroundColor:"white",
+    flexDirection: 'row',
+    justifyContent: 'center',
+    backgroundColor: 'white',
   },
   shadowProp: {
     shadowColor: '#171717',
@@ -126,13 +138,13 @@ const styles = StyleSheet.create({
     width: 60,
     height: 60,
     borderRadius: 60 / 2,
-    backgroundColor: "rgb(120,190,250)",
-    top:-25,
-    justifyContent:"center",
+    backgroundColor: 'rgb(120,190,250)',
+    top: -25,
+    justifyContent: 'center',
   },
-  buttonText:{
-    alignSelf:"center",
-    color:"white",
+  buttonText: {
+    alignSelf: 'center',
+    color: 'white',
   },
   centeredView: {
     flex: 1,
@@ -160,7 +172,7 @@ const styles = StyleSheet.create({
     padding: 10,
     elevation: 2,
     backgroundColor: '#2196F3',
-    margin:5,
+    margin: 5,
   },
   textStyle: {
     color: 'white',
@@ -172,4 +184,3 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
 });
-
