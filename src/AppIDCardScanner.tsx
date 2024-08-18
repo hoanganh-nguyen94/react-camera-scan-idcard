@@ -1,10 +1,10 @@
 import React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import HomeScreen from './IDCardScanner/screens/HomeScreen';
-import CameraScreen from './IDCardScanner/screens/CameraScreen';
-import CardScreen from './IDCardScanner/screens/CardScreen';
-import {TextButton} from './IDCardScanner/components/TextButton';
+import HomeScreen from './screens/HomeScreen';
+import CameraScreen from './screens/CameraScreen';
+import CardScreen from './screens/CardScreen';
+import {TextButton} from './components/TextButton';
 
 const Stack = createNativeStackNavigator();
 
@@ -17,7 +17,7 @@ function App(): React.JSX.Element {
         <Stack.Screen
           name="Card"
           component={CardScreen}
-          options={() => ({
+          options={({navigation, route}) => ({
             // Add a placeholder button without the `onPress` to avoid flicker
             headerRight: () => <TextButton title="Save"></TextButton>,
           })}
