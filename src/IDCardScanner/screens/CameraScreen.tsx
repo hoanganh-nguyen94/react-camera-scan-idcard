@@ -1,5 +1,5 @@
 import {useEffect, useState} from 'react';
-import {Dimensions, Pressable, StyleSheet, View} from 'react-native';
+import {Pressable, StyleSheet, View} from 'react-native';
 import Svg, {Rect} from 'react-native-svg';
 import {
   Camera,
@@ -18,20 +18,9 @@ export interface CameraScreenProps {
 export default function CameraScreen(props: CameraScreenProps) {
   const [hasPermission, setHasPermission] = useState(false);
   const [isActive, setIsActive] = useState(true);
-  const screen = Dimensions.get('screen');
-  console.log(screen);
-  const device = useCameraDevice('back', {
-    physicalDevices: [
-      // 'ultra-wide-angle-camera',
-      // 'telephoto-camera',
-      'wide-angle-camera',
-    ],
-  });
+  const device = useCameraDevice('back');
   const format = useCameraFormat(device, [
-    {
-      videoResolution: {width: screen.width, height: screen.height},
-      videoStabilizationMode: 'auto',
-    },
+    {videoResolution: {width: 1920, height: 1080}},
     {fps: 30},
   ]);
   const [cropRegion, setCropRegion] = useState({
@@ -119,9 +108,9 @@ export default function CameraScreen(props: CameraScreenProps) {
             style={StyleSheet.absoluteFill}
             isActive={isActive}
             device={device}
-            pixelFormat={'native'}
             format={format}
             frameProcessor={frameProcessor}
+            pixelFormat="yuv"
           />
           <Svg
             preserveAspectRatio="xMidYMid slice"
