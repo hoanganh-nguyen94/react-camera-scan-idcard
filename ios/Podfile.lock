@@ -570,6 +570,9 @@ PODS:
     - React-callinvoker
     - React-Core
     - react-native-worklets-core
+  - VisionCameraCropper (0.1.1):
+    - RCT-Folly (= 2021.07.22.00)
+    - React-Core
   - Yoga (1.14.0)
   - YogaKit (1.18.1):
     - Yoga (~> 1.14)
@@ -651,6 +654,7 @@ DEPENDENCIES:
   - RNSVG (from `../node_modules/react-native-svg`)
   - RNVectorIcons (from `../node_modules/react-native-vector-icons`)
   - VisionCamera (from `../node_modules/react-native-vision-camera`)
+  - VisionCameraCropper (from `../node_modules/vision-camera-cropper`)
   - Yoga (from `../node_modules/react-native/ReactCommon/yoga`)
 
 SPEC REPOS:
@@ -778,6 +782,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-vector-icons"
   VisionCamera:
     :path: "../node_modules/react-native-vision-camera"
+  VisionCameraCropper:
+    :path: "../node_modules/vision-camera-cropper"
   Yoga:
     :path: "../node_modules/react-native/ReactCommon/yoga"
 
@@ -850,6 +856,7 @@ SPEC CHECKSUMS:
   SDWebImageWebPCoder: 908b83b6adda48effe7667cd2b7f78c897e5111d
   SocketRocket: f32cd54efbe0f095c4d7594881e52619cfe80b17
   VisionCamera: 6c8ca7d04fc62fafccd8f8ad584e96f5303671f5
+  VisionCameraCropper: a3ff3bd5bb71ac171a71d1c0c5e58c8fb7814b2a
   Yoga: 6f5ab94cd8b1ecd04b6e973d0bc583ede2a598cc
   YogaKit: f782866e155069a2cca2517aafea43200b01fd5a
 
