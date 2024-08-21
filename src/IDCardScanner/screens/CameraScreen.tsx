@@ -1,5 +1,5 @@
 import {useEffect, useState} from 'react';
-import {Pressable, StyleSheet, View} from 'react-native';
+import {Pressable, StyleSheet, useWindowDimensions, View} from 'react-native';
 import Svg, {Rect} from 'react-native-svg';
 import {
   Camera,
@@ -18,12 +18,16 @@ export interface CameraScreenProps {
 export default function CameraScreen(props: CameraScreenProps) {
   const [hasPermission, setHasPermission] = useState(false);
   const [isActive, setIsActive] = useState(true);
-  const device = useCameraDevice('back', {
-    physicalDevices: ['wide-angle-camera'],
-  });
+  // const device = useCameraDevice('front', {
+  //   physicalDevices: ['wide-angle-camera'],
+  // });
+  const device = useCameraDevice('back');
+  const {width, height} = useWindowDimensions();
   const format = useCameraFormat(device, [
-    {videoResolution: 'max', photoResolution: 'max'},
-    {fps: 30},
+    {
+      photoResolution: {width, height},
+      videoResolution: {width, height},
+    },
   ]);
   const [cropRegion, setCropRegion] = useState({
     left: 10,
@@ -107,12 +111,21 @@ export default function CameraScreen(props: CameraScreenProps) {
       {device != null && hasPermission && (
         <>
           <Camera
-            style={StyleSheet.absoluteFill}
+            style={[
+              StyleSheet.absoluteFill,
+              {
+                width,
+                // height,
+                height: height,
+              },
+            ]}
+            orientation="portrait"
             isActive={isActive}
             device={device}
             format={format}
             frameProcessor={frameProcessor}
             pixelFormat="yuv"
+            photo
           />
           <Svg
             preserveAspectRatio="xMidYMid slice"
