@@ -80,6 +80,7 @@ To learn more about React Native, take a look at the following resources:
 
 ```shell
 npx vision-camera-plugin-builder@0.7.0 android --pluginName=CropperFrameProcessor --methodName=crop
+npx vision-camera-plugin-builder@0.7.0 ios --pluginName=CropperFrameProcessor --methodName=crop
 
 ```
 
