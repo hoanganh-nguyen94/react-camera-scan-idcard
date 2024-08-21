@@ -8,7 +8,7 @@ import {
   useFrameProcessor,
 } from 'react-native-vision-camera';
 import {useSharedValue} from 'react-native-worklets-core';
-import {crop, CropRegion} from 'vision-camera-cropper';
+import {crop, CropRegion} from '../utils/CroperUtils';
 
 export interface CameraScreenProps {
   route: any;
@@ -85,7 +85,7 @@ export default function CameraScreen(props: CameraScreenProps) {
       const result = crop(frame, {
         cropRegion: cropRegion,
         includeImageBase64: true,
-        saveAsFile: false,
+        // saveAsFile: false,
       });
       if (result.base64) {
         onCapturedJS(result.base64);
