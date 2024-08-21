@@ -1,8 +1,8 @@
-#import <React/RCTBridgeModule.h>
-#import <React/RCTViewManager.h>
+// #import <VisionCamera/FrameProcessorPlugin.h>
+// #import <VisionCamera/FrameProcessorPluginRegistry.h>
 
-#import <VisionCamera/FrameProcessorPlugin.h>
-#import <VisionCamera/FrameProcessorPluginRegistry.h>
+// #import <VisionCamera/FrameProcessorPlugin.h>
+// #import <VisionCamera/FrameProcessorPluginRegistry.h>
 
 #if __has_include("AwesomeProject7215/AwesomeProject7215-Swift.h")
 #import "AwesomeProject7215/AwesomeProject7215-Swift.h"

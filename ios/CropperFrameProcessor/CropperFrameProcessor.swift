@@ -13,7 +13,7 @@ public class CropperFrameProcessorPlugin: FrameProcessorPlugin {
       options: options
     )
   }
-  
+
   public override func callback(
     _ frame: Frame,
     withArguments arguments: [AnyHashable: Any]?
@@ -31,7 +31,7 @@ public class CropperFrameProcessorPlugin: FrameProcessorPlugin {
     let ciImage = CIImage(
       cvPixelBuffer: imageBuffer
     )
-    
+
     guard let cgImage = CIContext().createCGImage(
       ciImage,
       from: ciImage.extent
@@ -41,7 +41,7 @@ public class CropperFrameProcessorPlugin: FrameProcessorPlugin {
       )
       return cropResult
     }
-    
+
     let image:UIImage;
     let cropRegion = arguments?["cropRegion"] as? [String: Int]
     if cropRegion != nil {
@@ -63,7 +63,7 @@ public class CropperFrameProcessorPlugin: FrameProcessorPlugin {
       let height:Double = Double(
         cropRegion?["height"] ?? 100
       ) / 100.0 * imgHeight
-      
+
       // The cropRect is the rect of the image to keep,
       // in this case centered
       let cropRect = CGRect(
@@ -72,7 +72,7 @@ public class CropperFrameProcessorPlugin: FrameProcessorPlugin {
         width: width,
         height: height
       ).integral
-      
+
       let cropped = cgImage.cropping(
         to: cropRect
       )!
@@ -93,11 +93,11 @@ public class CropperFrameProcessorPlugin: FrameProcessorPlugin {
         image
       )
     }
-    
+
     return cropResult
   }
-  
-  
+
+
   func getBase64FromImage(
     _ image:UIImage
   ) -> String {
