@@ -18,7 +18,7 @@ public class CropperFrameProcessorPlugin: FrameProcessorPlugin {
     _ frame: Frame,
     withArguments arguments: [AnyHashable: Any]?
   ) -> Any? {
-    let buffer = frame.buffer
+    _ = frame.buffer
     var cropResult: [String:Any] = [:]
     guard let imageBuffer = CMSampleBufferGetImageBuffer(
       frame.buffer
@@ -97,23 +97,6 @@ public class CropperFrameProcessorPlugin: FrameProcessorPlugin {
     return cropResult
   }
   
-  func saveImage(
-    _ image:UIImage
-  ) -> String {
-    let url = FileManager.default.temporaryDirectory
-      .appendingPathComponent(
-        UUID().uuidString
-      )
-      .appendingPathExtension(
-        "jpeg"
-      )
-    try? image.jpegData(
-      compressionQuality: 1.0
-    )?.write(
-      to: url
-    )
-    return url.path
-  }
   
   func getBase64FromImage(
     _ image:UIImage
