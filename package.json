@@ -31,11 +31,7 @@
     "react-native-vector-icons": "10.0.0",
     "react-native-video": "5.2.1",
     "react-native-worklets-core": "0.3.0",
-
-
     "@react-native-async-storage/async-storage": "^1.22.2",
-
-    "mrz": "^4.0.0"
 
   },
   "devDependencies": {

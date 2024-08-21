@@ -18,9 +18,11 @@ export interface CameraScreenProps {
 export default function CameraScreen(props: CameraScreenProps) {
   const [hasPermission, setHasPermission] = useState(false);
   const [isActive, setIsActive] = useState(true);
-  const device = useCameraDevice('back');
+  const device = useCameraDevice('back', {
+    physicalDevices: ['wide-angle-camera'],
+  });
   const format = useCameraFormat(device, [
-    {videoResolution: {width: 1920, height: 1080}},
+    {videoResolution: 'max', photoResolution: 'max'},
     {fps: 30},
   ]);
   const [cropRegion, setCropRegion] = useState({
