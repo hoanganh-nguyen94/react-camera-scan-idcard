@@ -21,7 +21,7 @@ export default function CameraScreen(props: CameraScreenProps) {
   // const device = useCameraDevice('front', {
   //   physicalDevices: ['wide-angle-camera'],
   // });
-  const device = useCameraDevice('back');
+  const device = useCameraDevice('front');
   const {width, height} = useWindowDimensions();
   const format = useCameraFormat(device, [
     {
