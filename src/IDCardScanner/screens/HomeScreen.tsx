@@ -81,7 +81,7 @@ export default function HomeScreen(props: HomeScreenProps) {
             goToCardScreen();
           }}>
           <View style={styles.circle}>
-            <Text style={styles.buttonText}>SCAN</Text>
+            <Text style={styles.buttonText}>Sca123n</Text>
           </View>
         </Pressable>
       </View>

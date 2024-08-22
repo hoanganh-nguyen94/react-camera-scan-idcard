@@ -3,6 +3,7 @@ import {Pressable, StyleSheet, useWindowDimensions, View} from 'react-native';
 import Svg, {Rect} from 'react-native-svg';
 import {
   Camera,
+  CameraDevice,
   useCameraDevice,
   useCameraFormat,
   useFrameProcessor,
@@ -21,14 +22,17 @@ export default function CameraScreen(props: CameraScreenProps) {
   // const device = useCameraDevice('front', {
   //   physicalDevices: ['wide-angle-camera'],
   // });
-  const device = useCameraDevice('front');
+  const device: CameraDevice = useCameraDevice('front') as CameraDevice;
   const {width, height} = useWindowDimensions();
-  const format = useCameraFormat(device, [
-    {
-      photoResolution: {width, height},
-      videoResolution: {width, height},
-    },
-  ]);
+  const format = useCameraFormat(
+    {...device, id: 'cameraId', sensorOrientation: 'landscape-left'},
+    [
+      {
+        photoResolution: 'max',
+        videoResolution: 'max',
+      },
+    ],
+  );
   const [cropRegion, setCropRegion] = useState({
     left: 10,
     top: 20,
@@ -119,7 +123,7 @@ export default function CameraScreen(props: CameraScreenProps) {
                 height: height,
               },
             ]}
-            orientation="portrait"
+            orientation={'landscape-left'}
             isActive={isActive}
             device={device}
             format={format}
